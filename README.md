@@ -1,0 +1,2 @@
+# langsh
+extensible dictionary shell

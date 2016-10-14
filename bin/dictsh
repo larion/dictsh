@@ -54,3 +54,106 @@ while (defined ($_ = $term->readline($shell->get_prompt))) {
     try { $shell->process($decoded_command); }
     catch { print "error: $_"; };
 }
+
+=pod
+
+=head1 NAME
+
+dictsh - Dictionary shell
+
+=head1 SYNOPSIS
+
+    > dictsh
+    dictsh (v0.01)
+    For help type /h
+    Loading plugin Wikipedia: OK
+    Loading plugin Altervista: OK
+    Loading plugin Woorden: OK
+    Loading plugin Duden: OK
+    Loading plugin TheFreeDictionary: OK
+    Loading plugin GoogleTranslate: OK
+    Loading plugin Synoniemen: OK
+    de - de > /h
+    COMMANDS
+
+    /c(hange-language) lang1 [lang2]              change languages
+    /s(witch)                                     switch primary and secondary languages
+    /m(ode) mode                                  change mode (mode has to be one of: dictionary, thesaurus, definition, encyclopedia)
+    /a(dd-plugin) plugin-name [plugin-arguments]  add a plugin
+    /r(emove-plugin) plugin-name                  remove a plugin
+    /d(ebug)                                      turn on debug mode
+    /h(elp)                                       display this text
+
+    EXAMPLES:
+
+    /c en de       sets primary language to English and secondary language to German
+    /c it          sets primary language to Italian
+    /m e           switches to encyclopedia mode
+    /m t           switches to thesaurus mode
+    /a GoogleTranslate api_key XXXX    adds 'GoogleTranslate' plugin with api key XXXX
+    /r Woorden        removes 'Woorden' plugin
+
+    de - de > /c de en
+    OK
+    de - en > boshaft
+    spitefully
+    de - en > überwiegend
+    mostly
+    de - en > /c nl nl
+    OK
+    nl - nl > maatschappij
+    de maatschappij
+    Uitspraak:  [matsxɑ'pɛi]Verbuigingen:  maatschappij|en (meerv.)
+    1)
+    alle mensen samen, vooral de manier waarop ze met elkaar omgaan
+    Voorbeelden:  `welvaartsmaatschappij`,`maatschappijkritiek`Synoniem:  samenleving
+    2)
+    groot bedrijf
+    Voorbeeld:  `verzekeringsmaatschappij`Synoniem:  onderneming
+    nl - nl > /m encyclopedia
+    OK
+    Encyclopedia (nl) > /c en
+    OK
+    Encyclopedia (en) > Alexandria
+
+=head1 DESCRIPTION
+
+Extensible shell for querying dictionaries, thesauri and encyclopedia from the command line.
+
+For more info type /h in the shell.
+
+=head1 AUTHOR
+
+This module is written by Larion Garaczi <larion@cpan.org> (2016)
+
+=head1 SOURCE CODE
+
+The source code for this module is hosted on GitHub L<https://github.com/larion/app-dict>.
+
+Feel free to contribute :)
+
+=head1 LICENSE AND COPYRIGHT
+
+MIT License
+
+Copyright (c) 2016 Larion Garaczi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+=cut

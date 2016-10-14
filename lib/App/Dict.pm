@@ -142,3 +142,65 @@ sub _require_plugin ($self, $plugin_name) {
 
 __PACKAGE__->meta->make_immutable;
 1;
+
+=pod
+
+=head1 NAME
+
+App::Dict - Main controller module for dictsh
+
+=head1 SYNOPSIS
+
+	$dict = App::Dict->new();
+	$dict->add_plugin('GoogleTranslate', {api_key => 'XXX'});
+	$dict->mode('dictionary');
+	$dict->from('en');
+	$dict->from('de');
+	my $result = $dict->lookup('whatever');
+
+	$dict->add_plugin('Wikipedia');
+	$dict->mode('encyclopedia');
+	$dict->from('en');
+	$result = $dict->lookup('Alexandria');
+
+=head1 DESCRIPTION
+
+This is the controller module that manages the plugins and which can be used to query
+different dictionaries/encyclopedia programatically. For the command-line application
+itself see bin/dictsh.
+
+=head1 AUTHOR
+
+This module is written by Larion Garaczi <larion@cpan.org> (2016)
+
+=head1 SOURCE CODE
+
+The source code for this module is hosted on GitHub L<https://github.com/larion/app-dict>.
+
+Feel free to contribute :)
+
+=head1 LICENSE AND COPYRIGHT
+
+MIT License
+
+Copyright (c) 2016 Larion Garaczi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+=cut

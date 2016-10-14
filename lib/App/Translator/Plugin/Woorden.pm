@@ -10,13 +10,6 @@ use Try::Tiny;
 use HTML::TreeBuilder::XPath;
 use List::MoreUtils qw/after_incl/;
 
-#has capabilities => (
-#    isa     => 'ArrayRef',
-#    default => sub {
-#        ['definition-nl','dictionary-nl-nl']
-#    },
-#);
-
 sub capabilities {
         ['definition-nl','dictionary-nl-nl']
 }

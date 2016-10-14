@@ -25,16 +25,6 @@ has api_key => (
     required => 1,
 );
 
-#has capabilities => (
-#    isa     => 'ArrayRef',
-#    default => sub {
-#        [
-#            'thesaurus-en', 'thesaurus-es', 'thesaurus-de', 'thesaurus-fr',
-#            'thesaurus-it'
-#        ];
-#    },
-#);
-
 sub capabilities {
         [
             'thesaurus-en', 'thesaurus-es', 'thesaurus-de', 'thesaurus-fr',

@@ -1,4 +1,4 @@
-package App::Translator::Plugin::Wikipedia;
+package App::Dict::Plugin::Wikipedia;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -43,7 +43,7 @@ sub capabilities {
 
 sub init_options { {} }
 
-with 'App::Translator::Roles::Plugin';
+with 'App::Dict::Roles::Plugin';
 
 sub get_article {
     my $self = shift;

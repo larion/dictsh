@@ -1,4 +1,4 @@
-package App::Translator::Roles::Plugin;
+package App::Dict::Roles::Plugin;
 use Moose::Role;
 
 requires qw(capabilities init_options);
@@ -10,18 +10,18 @@ no Moose::Role;
 
 =head1 NAME
 
-App::Translator::Roles::Plugin
+App::Dict::Roles::Plugin
 
 =head1 DESCRIPTION
 
-This is the main generic Role for App::Translator plugins. Actually you should
-use more specific roles like App::Translator::Roles::Plugin::Dictionary which
+This is the main generic Role for App::Dict plugins. Actually you should
+use more specific roles like App::Dict::Roles::Plugin::Dictionary which
 also include this role but declares a more specific interface suitable for a
 given type of plugin.
 
 =head1 SYNOPSIS
 
-    package App::Translator::Plugin::X;
+    package App::Dict::Plugin::X;
 
     use Moose;
     use namespace::autoclean;
@@ -38,7 +38,7 @@ given type of plugin.
         required => 1,
     );
 
-    with 'App::Translator::Roles::Plugin::Dictionary';
+    with 'App::Dict::Roles::Plugin::Dictionary';
 
     sub init_options {
         my $class = shift;

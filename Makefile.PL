@@ -3,8 +3,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME          => 'App::Translator',
     AUTHOR        => 'Larion Garaczi <larion@cpan.org>',
-    VERSION_FROM  => 'lib/App/Translator.pm',
-    ABSTRACT_FROM =>  'lib/App/Translator.pm',
+    VERSION_FROM  => 'lib/App/Dict.pm',
+    ABSTRACT_FROM =>  'lib/App/Dict.pm',
     PREREQ_PM => {
         'HTTP::Tiny'                => 0,
         'HTML::FormatText'          => 0,

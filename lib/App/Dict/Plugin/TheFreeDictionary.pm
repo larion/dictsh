@@ -1,4 +1,4 @@
-package App::Translator::Plugin::TheFreeDictionary;
+package App::Dict::Plugin::TheFreeDictionary;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -23,7 +23,7 @@ has _client => (
     lazy    => 1,
 );
 
-with 'App::Translator::Roles::Plugin';
+with 'App::Dict::Roles::Plugin';
 
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
@@ -48,7 +48,7 @@ sub translate ($self, $lang1, $lang2, $word) { return $self->define($lang1, $wor
 
 =head1 NAME
 
-App::Translator::Plugin::TheFreeDictionary - Plugin to get English word definitions from thefreedictionary.com
+App::Dict::Plugin::TheFreeDictionary - Plugin to get English word definitions from thefreedictionary.com
 
 =head1 AUTHOR
 

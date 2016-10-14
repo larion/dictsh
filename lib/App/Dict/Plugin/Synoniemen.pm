@@ -1,4 +1,4 @@
-package App::Translator::Plugin::Synoniemen;
+package App::Dict::Plugin::Synoniemen;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -18,7 +18,7 @@ has init_options => (
     default => sub { {} },
 );
 
-with 'App::Translator::Roles::Plugin';
+with 'App::Dict::Roles::Plugin';
 
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
@@ -35,7 +35,7 @@ sub get_synonyms ($self, $lang, $word) {
 
 =head1 NAME
 
-App::Translator::Plugin::Synoniemen - Plugin to fetch Dutch synonyms from synoniemen.net
+App::Dict::Plugin::Synoniemen - Plugin to fetch Dutch synonyms from synoniemen.net
 
 =head1 AUTHOR
 

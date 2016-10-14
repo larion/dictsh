@@ -1,4 +1,4 @@
-package App::Translator::Plugin::Woorden;
+package App::Dict::Plugin::Woorden;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -19,7 +19,7 @@ has init_options => (
     default => sub { {} },
 );
 
-with 'App::Translator::Roles::Plugin';
+with 'App::Dict::Roles::Plugin';
 
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
@@ -42,7 +42,7 @@ sub translate ($self, $lang1, $lang2, $word) { return $self->define($lang1, $wor
 
 =head1 NAME
 
-App::Translator::Plugin::Woorden - Plugin to download dutch word definitions from woorden.org
+App::Dict::Plugin::Woorden - Plugin to download dutch word definitions from woorden.org
 
 =head1 AUTHOR
 

@@ -1,4 +1,4 @@
-package App::Translator::Plugin::Altervista;
+package App::Dict::Plugin::Altervista;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -50,7 +50,7 @@ sub init_options {
     }
 }
 
-with 'App::Translator::Roles::Plugin';
+with 'App::Dict::Roles::Plugin';
 
 sub get_synonyms {
     my $self = shift;

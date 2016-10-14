@@ -1,4 +1,4 @@
-package App::Translator; # XXX App::Dict ? App::Lingsh?
+package App::Dict;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -12,7 +12,7 @@ our $VERSION = "0.01";
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
 
-enum TranslatorMode => [qw(dictionary thesaurus definition encyclopedia speech)];
+enum DictMode => [qw(dictionary thesaurus definition encyclopedia speech)];
 
 has plugin_config => (
     isa => 'HashRef',
@@ -20,7 +20,7 @@ has plugin_config => (
 );
 
 has _plugins => (
-    isa => 'HashRef[App::Translator::Roles::Plugin]',
+    isa => 'HashRef[App::Dict::Roles::Plugin]',
     default => sub {{}},
 );
 
@@ -37,7 +37,7 @@ has to => (
 );
 
 has mode => (
-    isa     => 'TranslatorMode',
+    isa     => 'DictMode',
     default => 'dictionary',
     is      => 'rw',
 );
@@ -127,7 +127,7 @@ sub remove_plugin ($self, $name) {
 }
 
 sub _plugin_name_to_module_name ($self, $plugin_name) {
-    return 'App::Translator::Plugin::' . $plugin_name;
+    return 'App::Dict::Plugin::' . $plugin_name;
 }
 
 sub _require_plugin ($self, $plugin_name) {

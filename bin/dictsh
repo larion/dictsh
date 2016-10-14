@@ -10,15 +10,15 @@ use Try::Tiny;
 use Readonly;
 use YAML::XS;
 
-use App::Translator;
-use App::Translator::Shell;
+use App::Dict;
+use App::Dict::Shell;
 
 binmode STDOUT, ':encoding(UTF-8)';
 binmode STDERR, ':encoding(UTF-8)';
 
 my $config = YAML::XS::LoadFile('.app-dict.yml');
 
-my $translator = App::Translator->new(
+my $translator = App::Dict->new(
     from           => $config->{primary_language},
     to             => $config->{secondary_language},
     debug_messages => $config->{debug},
@@ -26,7 +26,7 @@ my $translator = App::Translator->new(
 
 my $term = Term::ReadLine->new('dictionary CLI');
 my $out = $term->OUT || \*STDOUT;
-printf $out "langsh (v%s)\nFor help type /h\n", $translator->VERSION;
+printf $out "dictsh (v%s)\nFor help type /h\n", $translator->VERSION;
 
 my $plugin_config = $config->{Plugins};
 for my $plugin (keys %$plugin_config) {
@@ -41,7 +41,7 @@ for my $plugin (keys %$plugin_config) {
 }
 
 
-my $shell = App::Translator::Shell->new(
+my $shell = App::Dict::Shell->new(
     translator => $translator,
     stdout     => $out,
 );

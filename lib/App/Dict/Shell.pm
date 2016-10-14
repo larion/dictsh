@@ -1,4 +1,4 @@
-package App::Translator::Shell;
+package App::Dict::Shell;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -12,7 +12,7 @@ use feature qw(signatures);
 no warnings qw(experimental::signatures);
 
 has translator => (
-    isa      => 'App::Translator', # XXX App::Translator::Core
+    isa      => 'App::Dict', # XXX App::Dict::Core
     required => 1,
 );
 
@@ -47,7 +47,7 @@ has min_lines_for_pager => (
 );
 
 has prompt_format => (
-    isa     => 'HashRef[Str]', # TODO keys must be of type TranslatorMode
+    isa     => 'HashRef[Str]', # TODO keys must be of type DictMode
     default => sub {
         {
             dictionary   => '%s - %s > ',

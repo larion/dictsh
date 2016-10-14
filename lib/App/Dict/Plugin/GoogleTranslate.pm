@@ -1,4 +1,4 @@
-package App::Translator::Plugin::GoogleTranslate;
+package App::Dict::Plugin::GoogleTranslate;
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -68,7 +68,7 @@ sub _build_client {
     );
 }
 
-with 'App::Translator::Roles::Plugin';
+with 'App::Dict::Roles::Plugin';
 
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
@@ -97,12 +97,12 @@ sub translate ($self, $lang1, $lang2, $text) {
 
 =head1 NAME
 
-App::Translator::Plugin::GoogleTranslate
+App::Dict::Plugin::GoogleTranslate
 
 =head1 DESCRIPTION
 
 Plugin to translate with the Google Translate API. A wrapper around
-WWW::Google::Translate to play well with App::Translator.
+WWW::Google::Translate to play well with App::Dict.
 
 =head1 AUTHOR
 

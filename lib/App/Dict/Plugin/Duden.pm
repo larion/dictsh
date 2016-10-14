@@ -1,4 +1,4 @@
-package App::Translator::Plugin::Duden;
+package App::Dict::Plugin::Duden;
 
 use utf8;
 use Moose;
@@ -19,7 +19,7 @@ has init_options => (
     default => sub { {} },
 );
 
-with 'App::Translator::Roles::Plugin';
+with 'App::Dict::Roles::Plugin';
 
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
@@ -53,7 +53,7 @@ sub translate ($self, $lang1, $lang2, $word) { return $self->define($lang1, $wor
 
 =head1 NAME
 
-App::Translator::Plugin::Duden - Plugin to get german word definitions from duden.de
+App::Dict::Plugin::Duden - Plugin to get german word definitions from duden.de
 
 =head1 AUTHOR
 

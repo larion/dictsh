@@ -79,14 +79,14 @@ sub lookup ($self, $text) {
        if ($plugin_conf->{supported_modes}{$mode}) { # so this plugin supports our current mode
             $self->d("$plugin_name can handle ${mode}!");
             if ($self->_plugins->{$plugin_name}) { # we already have an instance
-                 $self->d("Loading $plugin_name from cache.");
+                 $self->d("$plugin_name found in cache.");
                  $instance = $self->_plugins->{$plugin_name};
                  last;
             }
             # OK, then let's load it
             $self->_require_plugin($plugin_name);
             my $module_name =  $self->_plugin_name_to_module_name($plugin_name);
-            $self->d("Successfully loaded. Initializing.");
+            $self->d("Successfully loaded $plugin_name. Initializing.");
             try {
                 $self->_plugins->{$plugin_name} = $module_name->new($plugin_conf->{init_attributes});
                 $instance = $self->_plugins->{$plugin_name};
@@ -94,7 +94,7 @@ sub lookup ($self, $text) {
             catch {
                 die "Failed to initialize plugin $plugin_name: $_";
             };
-            $self->d("Initialized.");
+            $self->d("$plugin_name Initialized.");
             last;
         }
     }
@@ -126,9 +126,7 @@ sub remove_plugin ($self, $name) {
     delete $self->plugin_config->{$name};
 }
 
-sub _plugin_name_to_module_name ($self, $plugin_name) {
-    return 'App::Dict::Plugin::' . $plugin_name;
-}
+sub _plugin_name_to_module_name ($self, $plugin_name) { 'App::Dict::Plugin::' . $plugin_name }
 
 sub _require_plugin ($self, $plugin_name) {
     my $module_name = $self->_plugin_name_to_module_name($plugin_name);
@@ -155,7 +153,7 @@ App::Dict - Main controller module for dictsh
 	$dict->add_plugin('GoogleTranslate', {api_key => 'XXX'});
 	$dict->mode('dictionary');
 	$dict->from('en');
-	$dict->from('de');
+	$dict->to('de');
 	my $result = $dict->lookup('whatever');
 
 	$dict->add_plugin('Wikipedia');
@@ -171,7 +169,7 @@ itself see bin/dictsh.
 
 =head1 AUTHOR
 
-This module is written by Larion Garaczi <larion@cpan.org> (2016)
+This module is written by Larion Garaczi <larion@cpan.org> (2016-2017)
 
 =head1 SOURCE CODE
 
@@ -183,7 +181,7 @@ Feel free to contribute :)
 
 MIT License
 
-Copyright (c) 2016 Larion Garaczi
+Copyright (c) 2016-2017 Larion Garaczi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

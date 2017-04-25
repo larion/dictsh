@@ -8,6 +8,8 @@ use namespace::autoclean;
 use Try::Tiny;
 use Encode qw(encode_utf8);
 
+use App::Dict::Result;
+
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
 
@@ -127,25 +129,33 @@ sub _do_debug ($self) {
     print {$self->stdout} "Debug messages: " . ($self->translator->debug_messages ? "On\n" : "Off\n");
 }
 
-sub _do_mode_change ($self, $mode) {
+sub _do_mode_change ($self, $mode = undef) {
+    App::Dict::Result->throw({
+            text => "usage: /mode MODE (where MODE can be one off: [t]hesaurus, [di]ctionary, [de]finition, [e]ncyclopedia)"
+    }) unless defined $mode;
+
     my $mode_quoted = quotemeta($mode);
+    my $report_success = sub {
+        App::Dict::Result->throw({ text => "OK\n" });
+    };
     if ('thesaurus' =~ m/^$mode_quoted/) {
         $self->translator->mode("thesaurus");
-        print {$self->stdout} "OK\n";
+        $report_success->();
     }
     elsif ('dictionary' =~ m/^$mode_quoted/) {
         $self->translator->mode("dictionary");
-        print {$self->stdout} "OK\n";
+        $report_success->();
     }
     elsif ('definition' =~ m/^$mode_quoted/) {
         $self->translator->mode("definition");
-        print {$self->stdout} "OK\n";
+        $report_success->();
     }
     elsif ('encyclopedia' =~ m/^$mode_quoted/) {
         $self->translator->mode("encyclopedia");
-        print {$self->stdout} "OK\n";
-    } else {
-        print {$self->stdout} "Unknown mode: $mode_quoted\n";
+        $report_success->();
+    }
+    else {
+        App::Dict::Result->throw({ text =>  "Unknown mode: $mode_quoted\n" });
     }
 }
 

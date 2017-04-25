@@ -52,7 +52,16 @@ while (defined ($_ = $term->readline($shell->get_prompt))) {
 	next unless $decoded_command =~ /\w/;
     $term->addhistory($decoded_command);
     try { $shell->process($decoded_command); }
-    catch { print "error: $_"; };
+    catch {
+        if (ref $_ eq 'App::Dict::Result') {
+            my $error = "$_";
+            chomp $error;
+            print "$error\n";
+        }
+        else {
+            print "error: $_\n";
+        }
+    };
 }
 
 =pod

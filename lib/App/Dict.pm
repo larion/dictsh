@@ -54,32 +54,28 @@ sub d {
     warn "DEBUG: $msg" if $self->debug_messages;
 };
 
-sub lookup ($self, $text) {
-    my $mode;
+sub get_current_mode_name ($self) {
     my @languages_for_current_mode;
     if ($self->mode eq 'dictionary') {
         @languages_for_current_mode = ($self->from, $self->to);
-        $mode = sprintf("%s-%s-%s", $self->mode, @languages_for_current_mode);
+        return sprintf("%s-%s-%s", $self->mode, @languages_for_current_mode);
     } else {
         @languages_for_current_mode = $self->from;
-        $mode = sprintf("%s-%s", $self->mode, @languages_for_current_mode);
+        return sprintf("%s-%s", $self->mode, @languages_for_current_mode);
     }
-    my $method = {
-        dictionary    => 'translate',
-        definition    => 'define',
-        speech        => 'speak',
-        thesaurus     => 'get_synonyms',
-        encyclopedia  => 'get_article',
-    }->{$self->mode};
+}
+
+sub get_plugin_instance_for_current_mode ($self) {
+    my $mode = $self->get_current_mode_name;
 
     my $instance;
     for my $plugin_name (keys %{$self->plugin_config}) {
        my $plugin_conf = $self->plugin_config->{$plugin_name};
        $self->d("Checking plugin: $plugin_name\n");
        if ($plugin_conf->{supported_modes}{$mode}) { # so this plugin supports our current mode
-            $self->d("$plugin_name can handle ${mode}!");
+            $self->d("$plugin_name can handle ${mode}!\n");
             if ($self->_plugins->{$plugin_name}) { # we already have an instance
-                 $self->d("$plugin_name found in cache.");
+                 $self->d("$plugin_name found in cache.\n");
                  $instance = $self->_plugins->{$plugin_name};
                  last;
             }
@@ -98,8 +94,26 @@ sub lookup ($self, $text) {
             last;
         }
     }
+    return $instance
+}
 
-    die "No handler for $mode found :(\n" unless $instance;
+sub can_handle_current_mode ($self) { $self->get_plugin_instance_for_current_mode ? 1 : 0 }
+
+sub lookup ($self, $text) {
+    my $instance = $self->get_plugin_instance_for_current_mode;
+
+    die "No handler for @{[ $self->get_current_mode_name ]} found :(\n" unless $instance;
+
+    my @languages_for_current_mode = $self->mode eq 'dictionary' ? ($self->from, $self->to) : ($self->from);
+
+    my $method = {
+        dictionary    => 'translate',
+        definition    => 'define',
+        speech        => 'speak',
+        thesaurus     => 'get_synonyms',
+        encyclopedia  => 'get_article',
+    }->{$self->mode};
+
     return $instance->$method(@languages_for_current_mode, $text);
 }
 

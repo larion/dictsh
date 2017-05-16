@@ -114,6 +114,10 @@ sub _dispatch ($self, $method, @args) {
 sub _do_change ($self, $lang1, $lang2 = undef) {
     $self->translator->from($lang1);
     $self->translator->to($lang2) if $lang2;
+    App::Dict::Result->throw({
+            text => "Warning: no handler for current mode",
+    }) unless $self->translator->can_handle_current_mode;
+
     print {$self->stdout} "OK\n";
 }
 

@@ -18,4 +18,7 @@ WriteMakefile(
         'namespace::autoclean'      => 0,
         'Carp'                      => 0,
     },
+    EXE_FILES => [
+            'bin/dictsh',
+    ],
 );

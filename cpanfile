@@ -1,0 +1,11 @@
+requires 'HTTP::Tiny';
+requires 'HTML::FormatText';
+requires 'HTML::TreeBuilder::XPath';
+requires 'List::MoreUtils';
+requires 'JSON';
+requires 'Moose';
+requires 'MooseX::HasDefaults::RO';
+requires 'MooseX::StrictConstructor';
+requires 'URI';
+requires 'namespace::autoclean';
+requires 'Carp';

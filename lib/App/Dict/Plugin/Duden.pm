@@ -37,7 +37,6 @@ sub define ($self, $lang, $word) {
         my $replacement = $umlaut_mapping{$umlaut};
         $word =~ s/$umlaut/$replacement/g;
     }
-    warn $word;
     my $htmltree = HTML::TreeBuilder::XPath->new_from_url("http://www.duden.de/rechtschreibung/$word");
     my @results = $htmltree->findvalues('//li[contains(@id,\'Bedeutung\')]/text()');
     if (!@results) {

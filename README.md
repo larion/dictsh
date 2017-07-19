@@ -1,6 +1,6 @@
 # Dictsh
 
-A dictionary/encyclopedia shell
+An extensible dictionary/encyclopedia shell
 
 ## Usage
 
@@ -57,3 +57,8 @@ A dictionary/encyclopedia shell
     OK
     Encyclopedia (en) > Alexandria
     [ The wikipedia page for Alexandria in a pager ]
+
+## Extending the shell (for developers)
+
+See perldoc App::Dict::Roles::Plugin for the interface. Also there are some examples under App::Dict::Plugin::*
+which you can use as a template for your extension.

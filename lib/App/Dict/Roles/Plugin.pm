@@ -14,10 +14,7 @@ App::Dict::Roles::Plugin
 
 =head1 DESCRIPTION
 
-This is the main generic Role for App::Dict plugins. Actually you should
-use more specific roles like App::Dict::Roles::Plugin::Dictionary which
-also include this role but declares a more specific interface suitable for a
-given type of plugin.
+This is the Role/interface for App::Dict plugins.
 
 =head1 SYNOPSIS
 
@@ -38,7 +35,7 @@ given type of plugin.
         required => 1,
     );
 
-    with 'App::Dict::Roles::Plugin::Dictionary';
+    with 'App::Dict::Roles::Plugin';
 
     sub init_options {
         my $class = shift;

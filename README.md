@@ -62,6 +62,18 @@ An extensible dictionary/encyclopedia shell
     Encyclopedia (de) > Chaos Computer Club
     [ The German wikipedia page for Chaos Computer Club ]
 
+## Installation
+
+Easy way:
+
+    sudo cpanm git://github.com/larion/dictsh
+
+Or clone the repository and install the usual way:
+
+    git clone git@github.com:larion/dictsh.git
+    perl Makefile.PL
+    make
+    sudo make install
 
 ## Extending the shell (for developers)
 

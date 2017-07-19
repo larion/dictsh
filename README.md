@@ -66,4 +66,4 @@ An extensible dictionary/encyclopedia shell
 ## Extending the shell (for developers)
 
 See perldoc App::Dict::Roles::Plugin for the interface. Also there are some examples under App::Dict::Plugin::*
-which you can use as a template for your extension.
+which you can use as templates for your plugins.

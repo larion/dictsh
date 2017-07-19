@@ -71,7 +71,7 @@ COMMANDS
 /m(ode) mode                                  change mode (mode has to be one of: dictionary, thesaurus, definition, encyclopedia)
 /a(dd-plugin) plugin-name [plugin-arguments]  add a plugin
 /r(emove-plugin) plugin-name                  remove a plugin
-/d(ebug)                                      turn on debug mode
+/d(ebug)                                      toggle debug mode
 /h(elp)                                       display this text
 
 EXAMPLES:

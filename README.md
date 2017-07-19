@@ -57,6 +57,11 @@ An extensible dictionary/encyclopedia shell
     OK
     Encyclopedia (en) > Alexandria
     [ The wikipedia page for Alexandria in a pager ]
+    Encyclopedia (en) > /c de
+    OK
+    Encyclopedia (de) > Chaos Computer Club
+    [ The German wikipedia page for Chaos Computer Club ]
+
 
 ## Extending the shell (for developers)
 

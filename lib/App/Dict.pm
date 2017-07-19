@@ -48,7 +48,7 @@ has debug_messages => (
     is      => 'rw',
 );
 
-sub d {
+sub _d {
     my $self = shift;
     my $msg  = shift;
     warn "DEBUG: $msg" if $self->debug_messages;
@@ -65,24 +65,24 @@ sub get_current_mode_name ($self) {
     }
 }
 
-sub get_plugin_instance_for_current_mode ($self) {
+sub _get_plugin_instance_for_current_mode ($self) {
     my $mode = $self->get_current_mode_name;
 
     my $instance;
     for my $plugin_name (keys %{$self->plugin_config}) {
        my $plugin_conf = $self->plugin_config->{$plugin_name};
-       $self->d("Checking plugin: $plugin_name\n");
+       $self->_d("Checking plugin: $plugin_name\n");
        if ($plugin_conf->{supported_modes}{$mode}) { # so this plugin supports our current mode
-            $self->d("$plugin_name can handle ${mode}!\n");
+            $self->_d("$plugin_name can handle ${mode}!\n");
             if ($self->_plugins->{$plugin_name}) { # we already have an instance
-                 $self->d("$plugin_name found in cache.\n");
+                 $self->_d("$plugin_name found in cache.\n");
                  $instance = $self->_plugins->{$plugin_name};
                  last;
             }
             # OK, then let's load it
             $self->_require_plugin($plugin_name);
             my $module_name =  $self->_plugin_name_to_module_name($plugin_name);
-            $self->d("Successfully loaded $plugin_name. Initializing.");
+            $self->_d("Successfully loaded $plugin_name. Initializing.");
             try {
                 $self->_plugins->{$plugin_name} = $module_name->new($plugin_conf->{init_attributes});
                 $instance = $self->_plugins->{$plugin_name};
@@ -90,17 +90,17 @@ sub get_plugin_instance_for_current_mode ($self) {
             catch {
                 die "Failed to initialize plugin $plugin_name: $_";
             };
-            $self->d("$plugin_name Initialized.");
+            $self->_d("$plugin_name Initialized.");
             last;
         }
     }
     return $instance
 }
 
-sub can_handle_current_mode ($self) { $self->get_plugin_instance_for_current_mode ? 1 : 0 }
+sub can_handle_current_mode ($self) { $self->_get_plugin_instance_for_current_mode ? 1 : 0 }
 
 sub lookup ($self, $text) {
-    my $instance = $self->get_plugin_instance_for_current_mode;
+    my $instance = $self->_get_plugin_instance_for_current_mode;
 
     die "No handler for @{[ $self->get_current_mode_name ]} found :(\n" unless $instance;
 
@@ -124,9 +124,9 @@ sub add_plugin ($self, $name, $plugin_args) {
     #
     # MOP (attribute trait) or $class->init_opts? (MOP would be nicer)
     #my $debug_text = "Adding plugin $module_name with capabilities: " . join(', ' @{$module_name->capabilities});
-    #$self->d($debug_text));
+    #$self->_d($debug_text));
     my @capabilities = @{$module_name->capabilities};
-    $self->d("Adding plugin $module_name (with capabilities: @capabilities)");
+    $self->_d("Adding plugin $module_name (with capabilities: @capabilities)");
     $self->plugin_config->{$name} = {
         init_attributes => $plugin_args,
         supported_modes => { map +($_ => 1), @capabilities },
@@ -136,7 +136,7 @@ sub add_plugin ($self, $name, $plugin_args) {
 
 sub remove_plugin ($self, $name) {
     my $module_name = $self->_plugin_name_to_module_name($name);
-    $self->d("Removing plugin $module_name");
+    $self->_d("Removing plugin $module_name");
     delete $self->plugin_config->{$name};
 }
 
@@ -149,7 +149,7 @@ sub _plugin_name_to_module_name ($self, $plugin_name) { 'App::Dict::Plugin::' . 
 sub _require_plugin ($self, $plugin_name) {
     my $module_name = $self->_plugin_name_to_module_name($plugin_name);
     my $path = ($module_name =~ s{::}{/}gr) . '.pm';
-    $self->d("Loading $plugin_name ($path)");
+    $self->_d("Loading $plugin_name ($path)");
     eval { require $path };
     if ($@) {
         die "Failed to load plugin $plugin_name: $@";
@@ -216,6 +216,14 @@ Remove plugin with name $name
 =head2 list_loaded_plugins
 
 Return a data structure of loaded plugins and their settings.
+
+=head2 can_handle_current_mode
+
+Return 1 if there is a plugin for the current mode, 0 otherwise
+
+=head2 get_current_mode_name
+
+Return the canonical name of the current mode. Like 'dictionary-en-de' or 'encyclopedia-it'.
 
 =head1 AUTHOR
 

@@ -66,6 +66,8 @@ while (defined ($_ = $term->readline($shell->get_prompt))) {
 
 =pod
 
+=encoding utf8
+
 =head1 NAME
 
 dictsh - Dictionary shell

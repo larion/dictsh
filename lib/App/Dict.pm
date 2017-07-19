@@ -140,6 +140,10 @@ sub remove_plugin ($self, $name) {
     delete $self->plugin_config->{$name};
 }
 
+sub list_loaded_plugins ($self) {
+    return $self->plugin_config
+}
+
 sub _plugin_name_to_module_name ($self, $plugin_name) { 'App::Dict::Plugin::' . $plugin_name }
 
 sub _require_plugin ($self, $plugin_name) {
@@ -180,6 +184,38 @@ App::Dict - Main controller module for dictsh
 This is the controller module that manages the plugins and which can be used to query
 different dictionaries/encyclopedia programatically. For the command-line application
 itself see bin/dictsh.
+
+=head1 ATTRIBUTES
+
+=head2 from
+
+The source language.
+
+=head2 to
+
+The target language in dictionary mode. Not relevant in modes other than 'dictionary'.
+
+=head2 mode
+
+The mode. Can be one of qw(dictionary thesaurus definition encyclopedia speech).
+
+=head1 METHODS
+
+=head2 lookup($text)
+
+Look up a given text or word in the current mode.
+
+=head2 add_plugin($name, $plugin_args)
+
+Add a plugin with the given arguments
+
+=head2 remove_plugin($name)
+
+Remove plugin with name $name
+
+=head2 list_loaded_plugins
+
+Return a data structure of loaded plugins and their settings.
 
 =head1 AUTHOR
 
